@@ -6,14 +6,26 @@ An automated blog curation system that discovers, scores, and publishes articles
 
 ## Screenshots
 
-| Page | Preview |
-|---|---|
-| Landing Page | ![Landing](screenshots/landing.png) |
-| Home Feed | ![Home](screenshots/home.png) |
-| Discover | ![Discover](screenshots/discover.png) |
-| Blog Preview | ![Preview](screenshots/preview.png) |
-| Admin Dashboard | ![Admin](screenshots/admin-dashboard.png) |
-| Admin Settings | ![Settings](screenshots/admin-settings.png) |
+### adminpage
+![adminpage](screenshots/adminpage.png)
+
+### adminthemes
+![adminthemes](screenshots/adminthemes.png)
+
+### dashadmin
+![dashadmin](screenshots/dashadmin.png)
+
+### home
+![home](screenshots/home.png)
+
+### profile
+![profile](screenshots/profile.png)
+
+### settings
+![settings](screenshots/settings.png)
+
+### userpanel
+![userpanel](screenshots/userpanel.png)
 
 ---
 
@@ -81,8 +93,6 @@ cd blogcuration
 
 ### 2. Configure environment variables
 
-Copy the template and fill in your values:
-
 ```bash
 cp .env.template .env
 ```
@@ -114,8 +124,6 @@ ADMIN_EMAIL=your-email@gmail.com
 ADMIN_API_KEY=your-admin-api-key
 ```
 
-Configure the frontend env:
-
 ```bash
 cp frontend/.env.example frontend/.env
 ```
@@ -125,8 +133,6 @@ Edit `frontend/.env`:
 ```env
 VITE_ADMIN_KEY=your-admin-api-key
 ```
-
-> `VITE_ADMIN_KEY` must match `ADMIN_API_KEY` in the backend `.env`
 
 ### 3. Pull the AI model
 
@@ -138,27 +144,24 @@ ollama pull tinyllama
 
 ## Running the Project
 
-Open **3 separate terminals**:
-
-### Terminal 1 — Database (Docker)
+### Terminal 1 — Database
 
 ```bash
 docker compose up -d postgres
 ```
 
-### Terminal 2 — Backend (Spring Boot)
+### Terminal 2 — Backend
 
 ```powershell
-cd c:\path\to\blogcuration
 mvn spring-boot:run "-Dskip.frontend=true"
 ```
 
 Runs on → `http://localhost:8080`
 
-### Terminal 3 — Frontend (Svelte)
+### Terminal 3 — Frontend
 
 ```powershell
-cd c:\path\to\blogcuration\frontend
+cd frontend
 npm install
 npm run dev
 ```
@@ -170,11 +173,10 @@ Runs on → `http://localhost:5173`
 ## Stopping the Project
 
 ```bash
-# Stop Docker containers
 docker compose down
-
-# Stop Backend and Frontend → Ctrl+C in their terminals
 ```
+
+Stop Backend and Frontend → `Ctrl+C` in their terminals
 
 ---
 
@@ -182,12 +184,11 @@ docker compose down
 
 - **AI Pipeline** — Automatically discovers, scores, and publishes articles nightly via Ollama
 - **Admin Dashboard** — Monitor pipeline runs, manage articles, themes, and editorial profiles
-- **AI Behaviour Controls** — Admin can configure writing tone, style, content strategy, personalisation weights
+- **AI Behaviour Controls** — Configure writing tone, style, content strategy, personalisation weights
 - **User Feed** — Personalised "For You" and "Featured" feeds based on reading history and interests
-- **EN/FR Translation** — Toggle between English and French on any article card (MyMemory API)
+- **EN/FR Translation** — Toggle between English and French on any article card
 - **Discover Page** — Search by keyword or URL, get AI-curated blog post from any article
 - **Blog Generation** — Generate and edit AI blog posts, schedule for publishing
-- **Bilingual Mode** — Generate content in both English and French
 - **Pipeline Control** — ON / PAUSE / OFF flags with admin alerts
 
 ---
@@ -205,33 +206,6 @@ docker compose down
 | POST | `/api/pipeline/calibrate/{themeId}` | Calibrate a theme |
 
 All admin endpoints require `X-API-Key` header.
-
----
-
-## Environment Variables Reference
-
-### Backend (`.env`)
-
-| Variable | Description |
-|---|---|
-| `OLLAMA_API_URL` | Ollama local API URL |
-| `OLLAMA_MODEL` | Model name (e.g. `tinyllama`, `mistral`) |
-| `SEARCH_API_KEY` | SerpAPI key for web search |
-| `STOCK_PHOTO_API_KEY` | Unsplash access key |
-| `DB_USERNAME` | PostgreSQL username |
-| `DB_PASSWORD` | PostgreSQL password |
-| `REDIS_HOST` | Redis host |
-| `ADMIN_API_KEY` | Admin authentication key |
-| `MAIL_USERNAME` | Gmail address for alerts |
-| `MAIL_PASSWORD` | Gmail app password |
-
-### Frontend (`frontend/.env`)
-
-| Variable | Description |
-|---|---|
-| `VITE_ADMIN_KEY` | Must match backend `ADMIN_API_KEY` |
-| `VITE_GOOGLE_API_KEY` | Google Custom Search API key (optional) |
-| `VITE_GOOGLE_CX` | Google Custom Search engine ID (optional) |
 
 ---
 
