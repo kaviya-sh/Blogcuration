@@ -1,0 +1,85 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5434/blogcuration
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:your_db_password}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:your_email@gmail.com}
+    password: ${MAIL_PASSWORD:your_app_password}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+pipeline:
+  control-flag-key: pipeline:control:flag
+  dedup-ttl-days: 180
+  schedule-cron: "0 30 20 * * *"
+  calibration-cron: "0 0 19 * * MON"
+  themes-active: tech-innovation,startup-funding,ai-research,sustainability
+  max-candidates-per-theme: 3
+  min-fresh-articles-per-theme: 1
+  summary-word-min: 90
+  summary-word-max: 110
+  relevance-threshold: 5
+  innovation-threshold: 5
+  featured-relevance-threshold: 8
+  featured-innovation-threshold: 8
+  image-width: 1200
+  image-height: 630
+  article-fetch-words: 500
+  max-summary-retries: 2
+  banned-terms: revolutionary,game-changer,groundbreaking,unprecedented,disruptive,world-class,best-in-class,cutting-edge,state-of-the-art,synergy,leverage,paradigm-shift,holistic,robust,seamless
+
+ollama:
+  api-url: ${OLLAMA_API_URL:http://localhost:11434/api/chat}
+  model: ${OLLAMA_MODEL:tinyllama}
+  stream: false
+
+search:
+  api-url: ${SEARCH_API_URL:https://serpapi.com/search}
+  api-key: ${SEARCH_API_KEY:your_serpapi_key}
+  results-per-query: 3
+
+stock-photo:
+  api-url: ${STOCK_PHOTO_API_URL:https://api.unsplash.com/search/photos}
+  api-key: ${STOCK_PHOTO_API_KEY:your_unsplash_key}
+
+cms:
+  api-url: ${CMS_API_URL:http://localhost:1337}
+  api-key: ${CMS_API_KEY:your_strapi_api_key}
+
+admin:
+  email: ${ADMIN_EMAIL:your_email@gmail.com}
+  api-key: ${ADMIN_API_KEY:your_admin_api_key}
+
+image:
+  upload-dir: uploads/images
+  base-url: http://localhost:8080/images
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,loggers
+  endpoint:
+    health:
+      show-details: always

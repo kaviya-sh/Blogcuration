@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ACS — Automated Curation System</title>
+    <meta name="description" content="AI-powered article curation. Curated overnight, published every morning." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>●</text></svg>" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      body { background: #fff; color: #242424; font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; }
+      #splash {
+        position: fixed; inset: 0; background: #fff;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 16px; z-index: 9999; transition: opacity 0.3s ease;
+      }
+      #splash.hidden { opacity: 0; pointer-events: none; }
+      .splash-logo { font-family: 'Source Serif 4', Georgia, serif; font-size: 28px; font-weight: 700; color: #242424; }
+      .splash-sub { font-size: 13px; color: #6B6B6B; }
+      .splash-bar { width: 120px; height: 2px; background: #E6E6E6; border-radius: 2px; overflow: hidden; margin-top: 8px; }
+      .splash-fill { height: 100%; background: #1A8917; border-radius: 2px; animation: load 1s ease forwards; }
+      @keyframes load { from { width: 0 } to { width: 100% } }
+    </style>
+  </head>
+  <body>
+    <div id="splash">
+      <div class="splash-logo">ACS</div>
+      <div class="splash-sub">Automated Curation System</div>
+      <div class="splash-bar"><div class="splash-fill"></div></div>
+    </div>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+    <script>
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const s = document.getElementById('splash');
+          if (s) { s.classList.add('hidden'); setTimeout(() => s.remove(), 300); }
+        }, 900);
+      });
+    </script>
+  </body>
+</html>

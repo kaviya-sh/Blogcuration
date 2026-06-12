@@ -1,0 +1,73 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: blogcuration-postgres
+    environment:
+      POSTGRES_DB: blogcuration
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Kaviya@26
+    ports:
+      - "5434:5432"
+    volumes:
+      - blogcuration_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d blogcuration"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  strapi-postgres:
+    image: postgres:16-alpine
+    container_name: blogcuration-strapi-postgres
+    environment:
+      POSTGRES_DB: strapi
+      POSTGRES_USER: strapi
+      POSTGRES_PASSWORD: strapi123
+    ports:
+      - "5435:5432"
+    volumes:
+      - strapi_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U strapi -d strapi"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  strapi:
+    image: node:20-alpine
+    container_name: blogcuration-strapi
+    working_dir: /app
+    command: >
+      sh -c "
+        if [ ! -f package.json ]; then
+          npx create-strapi-app@latest . --no-run --skip-cloud
+          --dbclient postgres --dbhost strapi-postgres --dbport 5432
+          --dbname strapi --dbusername strapi --dbpassword strapi123;
+        fi &&
+        npm install pg &&
+        npm run develop
+      "
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: strapi-postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: strapi
+      DATABASE_USERNAME: strapi
+      DATABASE_PASSWORD: strapi123
+      NODE_ENV: development
+      APP_KEYS: toBeModified1,toBeModified2
+      API_TOKEN_SALT: toBeModified
+      ADMIN_JWT_SECRET: toBeModified
+      JWT_SECRET: toBeModified
+    ports:
+      - "1337:1337"
+    volumes:
+      - strapi_app:/app
+    depends_on:
+      strapi-postgres:
+        condition: service_healthy
+
+volumes:
+  blogcuration_postgres_data:
+  strapi_postgres_data:
+  strapi_app:
