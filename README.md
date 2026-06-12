@@ -6,6 +6,9 @@ An automated blog curation system that discovers, scores, and publishes articles
 
 ## Screenshots
 
+### home
+![home](screenshots/home.png)
+
 ### adminpage
 ![adminpage](screenshots/adminpage.png)
 
@@ -14,9 +17,6 @@ An automated blog curation system that discovers, scores, and publishes articles
 
 ### dashadmin
 ![dashadmin](screenshots/dashadmin.png)
-
-### home
-![home](screenshots/home.png)
 
 ### profile
 ![profile](screenshots/profile.png)
