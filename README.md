@@ -4,6 +4,19 @@ An automated blog curation system that discovers, scores, and publishes articles
 
 ---
 
+## Screenshots
+
+| Page | Preview |
+|---|---|
+| Landing Page | ![Landing](screenshots/landing.png) |
+| Home Feed | ![Home](screenshots/home.png) |
+| Discover | ![Discover](screenshots/discover.png) |
+| Blog Preview | ![Preview](screenshots/preview.png) |
+| Admin Dashboard | ![Admin](screenshots/admin-dashboard.png) |
+| Admin Settings | ![Settings](screenshots/admin-settings.png) |
+
+---
+
 ## Tech Stack
 
 | Layer | Technology |
